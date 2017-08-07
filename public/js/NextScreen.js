@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
-    View,
-    Button
+    View
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -18,28 +17,20 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
 });
 
-const App = (props)  => {
-    const { navigate } = props.navigation;
-
+const NextScreen = ()  => {
     return (
         <View style={styles.container}>
             <Text style={styles.welcome}>
-                Welcome to STAR WARS WORLD!
+                UNIVERSE!
             </Text>
-            <Button
-                onPress={() => navigate('NextScreen')}
-                title="The force will be with you!"
-            />
         </View>
     );
 }
 
-export default App
+NextScreen.navigationOptions = {
+    title: 'UNIVERSE',
+};
 
+export default NextScreen
