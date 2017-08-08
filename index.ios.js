@@ -21,7 +21,7 @@ class reactNavigationSample extends Component {
 
 const sentinel = StackNavigator({
     Home: { screen: reactNavigationSample },
-    NextScreen: { screen: NextScreen, title: 'ss' },
+    NextScreen: { screen: NextScreen, title: 'next' },
 });
 
 AppRegistry.registerComponent('sentinel', () => sentinel);
