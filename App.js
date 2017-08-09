@@ -49,7 +49,7 @@ class App extends Component {
     }
     render(){
     let options = [{label: 'People', value: 'people'},{label: 'Films', value: 'films'},{label: 'Starships', value: 'starships'},{label: 'Vehicles', value: 'vehicles'},{label: 'Planets', value: 'planets'}];
-    const { setParams, navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
         <View style={styles.container}>
             <Text style={styles.welcome}>

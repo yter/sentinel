@@ -4,7 +4,8 @@ import {
 } from 'react-native';
 import App from './App'
 import { StackNavigator } from 'react-navigation';
-import NextScreen from './public/js/NextScreen'
+import NextScreen from './public/js/NextScreen';
+import DetailScreen from './public/js/DetailScreen'
 
 class reactNavigationSample extends Component {
     static navigationOptions = {
@@ -22,6 +23,7 @@ class reactNavigationSample extends Component {
 const sentinel = StackNavigator({
     Home: { screen: reactNavigationSample },
     NextScreen: { screen: NextScreen, title: 'next' },
+    DetailScreen: {screen: DetailScreen, title: 'detail' }
 });
 
 AppRegistry.registerComponent('sentinel', () => sentinel);
