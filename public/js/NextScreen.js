@@ -4,6 +4,8 @@ import {
     Text,
     View,
     Button,
+    Image,
+    TouchableHighlight
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -12,14 +14,36 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+        width: null,
+        height: null
     },
     welcome: {
-        fontSize: 10,
+        flexDirection: 'row'
+    },
+    button: {
         margin: 10,
+        padding: 10,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: '#32E20A'
+    },
+    listItem: {
+        margin: 5,
+        padding: 5,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 20,
+        backgroundColor: 'blue'
+    },
+    listText:{
+        color: 'white'
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'white',
     },
 });
-
-
 
 class NextScreen extends Component {
   constructor(props) {
@@ -38,23 +62,24 @@ class NextScreen extends Component {
     _renderInfo(){
       const { navigate, state } = this.props.navigation;
       let data = this.state.detail.results;
-      let nextPage = this.state.detail.next;
       let dates = [];
       let buttons = null;
       if (data) {
           for (let i = 0; i < data.length; i++) {
               let obj = {};
-              obj["name"] = data[i].name;
+              obj["name"] = data[i].name ? data[i].name: data[i].title;
               obj["url"] = data[i].url;
               dates.push(obj);
           }
 
           buttons = dates.map((data, i) =>
-              <Button
+              <TouchableHighlight
                   key={i}
                   onPress={() => navigate('DetailScreen', {info: data.url, base: state.params.info})}
-                  title={data.name}
-              />
+                  style={styles.listItem}
+              >
+                  <Text style={styles.listText}>{data.name}</Text>
+              </TouchableHighlight>
           );
       }
 
@@ -66,10 +91,13 @@ class NextScreen extends Component {
         let button = '';
         if (nextPage) {
             button =(
-            <Button
+            <TouchableHighlight
                 onPress={() => this._fetchListing(nextPage)}
-                title="Next page"
-            />);
+                style={styles.button}
+            >
+              <Text style={styles.buttonText}>Next page</Text>
+            </TouchableHighlight>
+            );
             return button;
         } else {
             return null;
@@ -77,14 +105,16 @@ class NextScreen extends Component {
     }
 
     _renderPreviousButton() {
-        let nextPage = this.state.detail.previous;
+        let previousPage = this.state.detail.previous;
         let button = '';
-        if (nextPage) {
+        if (previousPage) {
             button =(
-                <Button
-                    onPress={() => this._fetchListing(nextPage)}
-                    title="Previous page"
-                />);
+                <TouchableHighlight
+                    onPress={() => this._fetchListing(previousPage)}
+                    style={styles.button}
+                >
+                    <Text style={styles.buttonText}>Previous page</Text>
+                </TouchableHighlight>);
             return button;
         } else {
             return null;
@@ -102,7 +132,7 @@ class NextScreen extends Component {
         }
         fetch(url)
             .then((response) => response.json())
-            .then((data) => {console.log(data); this.setState({detail: data})})
+            .then((data) => {this.setState({detail: data})})
             .catch((error) => {
                 console.error(error);
             });
@@ -110,11 +140,13 @@ class NextScreen extends Component {
 
     render() {
       return (
-        <View style={styles.container}>
-          {this._renderInfo()}
-          {this._renderNextButton()}
-          {this._renderPreviousButton()}
-        </View>
+        <Image source={require('../images/Next.jpg')} style={styles.container}>
+           {this._renderInfo()}
+           <View style={styles.welcome}>
+             {this._renderPreviousButton()}
+             {this._renderNextButton()}
+           </View>
+        </Image>
       );
     }
 }

@@ -7,6 +7,8 @@ import {
     PickerIOS,
     Dimensions,
     Platform,
+    Image,
+    TouchableHighlight
 } from 'react-native';
 
 let PickerItemIOS = PickerIOS.Item;
@@ -15,30 +17,46 @@ let SCREEN_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        width: null,
+        height: null
     },
     welcome: {
-        fontSize: 20,
+        fontSize: 24,
         textAlign: 'center',
         margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    containerStyle: {
-        borderWidth: 1,
-        borderColor: '#cecece',
-        padding: 10
+        backgroundColor: 'transparent',
+        color: 'blue',
+        fontWeight: 'bold',
+
     },
     textStyle: {
-        fontSize: 18
+        margin: 10,
+        fontSize: 24,
+        backgroundColor: 'transparent',
+        color: '#32E20A',
+        fontWeight: 'bold',
+    },
+    buttonStyle: {
+        padding: 10,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: '#32E20A'
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'white',
     },
     bottomPicker : {
         width:SCREEN_WIDTH,
+    },
+    PickerIOS : {
+        color: '#FFF',
+        fontSize: 24,
+        marginBottom: 30,
+
     },
 });
 
@@ -48,10 +66,10 @@ class App extends Component {
         this.state = {info: 'people'};
     }
     render(){
-    let options = [{label: 'People', value: 'people'},{label: 'Films', value: 'films'},{label: 'Starships', value: 'starships'},{label: 'Vehicles', value: 'vehicles'},{label: 'Planets', value: 'planets'}];
+    let options = [{label: 'People', value: 'people'},{label: 'Films', value: 'films'},{label: 'Starships', value: 'starships'},{label: 'Vehicles', value: 'vehicles'},{label: 'Planets', value: 'planets'},{label: 'Species', value: 'species'}];
     const { navigate } = this.props.navigation;
     return (
-        <View style={styles.container}>
+        <Image source={require('./public/images/top.jpg')} style={styles.container}>
             <Text style={styles.welcome}>
                 Welcome to STAR WARS WORLD! What Information do you want to know?
             </Text>
@@ -59,6 +77,7 @@ class App extends Component {
                 selectedValue={this.state.info}
                 onValueChange={(option) => this.setState({info: option})}
                 style={styles.bottomPicker}
+                itemStyle={styles.PickerIOS}
                 ref={'picker'}
             >
                 {options.map((option, i) => {
@@ -71,12 +90,15 @@ class App extends Component {
                     )
                 })}
             </PickerIOS>
-            <Text>I want to know about {this.state.info}!</Text>
-            <Button
+            <Text style={styles.textStyle}>I want to know about {this.state.info}!</Text>
+            <TouchableHighlight
+                style={styles.buttonStyle}
                 onPress={() => navigate('NextScreen', {info: this.state.info})}
                 title="The force will be with you!"
-            />
-        </View>
+            >
+              <Text style={styles.buttonText}>The force will be with you!</Text>
+            </TouchableHighlight>
+        </Image>
     );
 }
 }
