@@ -4,7 +4,8 @@ import {
     Text,
     View,
     Button,
-    Image
+    Image,
+    TouchableHighlight
 } from 'react-native';
 
 const Images = {
@@ -25,17 +26,55 @@ const styles = StyleSheet.create({
         width: null,
         height: null
     },
-    listItem: {
-        margin: 5,
-        padding: 5,
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 20,
-        backgroundColor: 'blue'
-    },
     welcome: {
         fontSize: 10,
         margin: 10,
+    },
+    listItem: {
+        margin: 5,
+        padding: 5,
+        borderColor: '#2d3400',
+        borderWidth: 1,
+        backgroundColor: '#4a55ce',
+        minWidth: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        color: 'white'
+    },
+    listItemPlanet: {
+        margin: 5,
+        padding: 5,
+        borderColor: '#2d3400',
+        borderWidth: 1,
+        backgroundColor: '#4a55ce',
+        minWidth: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        color: 'white'
+    },
+    button: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10,
+        padding: 10,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: '#558B2F'
+    },
+    listText: {
+        fontSize: 18,
+        color: 'white',
     },
 });
 
@@ -44,7 +83,9 @@ const styles = StyleSheet.create({
 class DetailScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {detail: {}};
+    this.state = {
+        detail: {}
+    };
     this._fetchListing = this._fetchListing.bind(this);
     this._renderInfo = this._renderInfo.bind(this);
     this._renderPeople = this._renderPeople.bind(this);
@@ -54,7 +95,7 @@ class DetailScreen extends Component {
         this._fetchListing();
     }
 
-    _fetchListing(next=false) {
+    _fetchListing(next=false, ) {
         const {state} = this.props.navigation;
         let url = '';
         // Get listing details
@@ -78,18 +119,20 @@ class DetailScreen extends Component {
         if (dat) {
             dates = (
                 <View>
-                    <Text>Name: {dat.name}</Text>
-                    <Text>Height: {dat.height}</Text>
-                    <Text>Mass: {dat.mass}</Text>
-                    <Text>Hair color: {dat.hair_color}</Text>
-                    <Text>Skin color: {dat.skin_color}</Text>
-                    <Text>Eye color: {dat.eye_color}</Text>
-                    <Text>Birthday: {dat.birth_year}</Text>
-                    <Text>Gender: {dat.gender}</Text>
-                    <Button
+                    <Text style={styles.listItem}>Name: {dat.name}</Text>
+                    <Text style={styles.listItem}>Height: {dat.height}</Text>
+                    <Text style={styles.listItem}>Mass: {dat.mass}</Text>
+                    <Text style={styles.listItem}>Hair color: {dat.hair_color}</Text>
+                    <Text style={styles.listItem}>Skin color: {dat.skin_color}</Text>
+                    <Text style={styles.listItem}>Eye color: {dat.eye_color}</Text>
+                    <Text style={styles.listItem}>Birthday: {dat.birth_year}</Text>
+                    <Text style={styles.listItem}>Gender: {dat.gender}</Text>
+                    <TouchableHighlight
+                        style={styles.button}
                         onPress={() => navigate('DetailScreen', {info: dat.homeworld, base: "planets"})}
-                        title="Home world"
-                    />
+                    >
+                        <Text style={styles.listText}>Home world</Text>
+                    </TouchableHighlight>
                 </View>
             );
         } else {
@@ -104,15 +147,15 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text>Name: {dat.name}</Text>
-                <Text>Rotation period: {dat.rotation_period}</Text>
-                <Text>orbital_period: {dat.orbital_period}</Text>
-                <Text>diameter: {dat.diameter}</Text>
-                <Text>climate: {dat.climate}</Text>
-                <Text>gravity: {dat.gravity}</Text>
-                <Text>terrain: {dat.terrain}</Text>
-                <Text>surface_water: {dat.surface_water}</Text>
-                <Text>population: {dat.population}</Text>
+                <Text style={styles.listItem}>Name: {dat.name}</Text>
+                <Text style={styles.listItem}>Rotation period: {dat.rotation_period}</Text>
+                <Text style={styles.listItem}>orbital_period: {dat.orbital_period}</Text>
+                <Text style={styles.listItem}>diameter: {dat.diameter}</Text>
+                <Text style={styles.listItem}>climate: {dat.climate}</Text>
+                <Text style={styles.listItem}>gravity: {dat.gravity}</Text>
+                <Text style={styles.listItem}>terrain: {dat.terrain}</Text>
+                <Text style={styles.listItem}>surface_water: {dat.surface_water}</Text>
+                <Text style={styles.listItem}>population: {dat.population}</Text>
             </View>
         );
 
@@ -124,12 +167,12 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text>Title: {dat.title}</Text>
-                <Text>Episode_id: {dat.episode_id}</Text>
-                <Text>Director: {dat.director}</Text>
-                <Text>Producer: {dat.producer}</Text>
-                <Text>Opening Crawl: {dat.opening_crawl}</Text>
-                <Text>Release_date: {dat.release_date}</Text>
+                <Text style={styles.listItem}>Title: {dat.title}</Text>
+                <Text style={styles.listItem}>Episode_id: {dat.episode_id}</Text>
+                <Text style={styles.listItem}>Director: {dat.director}</Text>
+                <Text style={styles.listItem}>Producer: {dat.producer}</Text>
+                <Text style={styles.listItem}>Release_date: {dat.release_date}</Text>
+                <Text style={styles.listItem}>Opening Crawl: {dat.opening_crawl}</Text>
             </View>
         );
 
@@ -141,16 +184,16 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text>Name: {dat.name}</Text>
-                <Text>Model: {dat.model}</Text>
-                <Text>Manufacturer: {dat.manufacturer}</Text>
-                <Text>Cost: {dat.cost_in_credits}</Text>
-                <Text>Length: {dat.length}</Text>
-                <Text>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
-                <Text>Crew: {dat.crew}</Text>
-                <Text>Passengers: {dat.passengers}</Text>
-                <Text>Starship class: {dat.starship_class}</Text>
-                <Text>Hyperdrive rating: {dat.hyperdrive_rating}</Text>
+                <Text style={styles.listItem}>Name: {dat.name}</Text>
+                <Text style={styles.listItem}>Model: {dat.model}</Text>
+                <Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text>
+                <Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text>
+                <Text style={styles.listItem}>Length: {dat.length}</Text>
+                <Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
+                <Text style={styles.listItem}>Crew: {dat.crew}</Text>
+                <Text style={styles.listItem}>Passengers: {dat.passengers}</Text>
+                <Text style={styles.listItem}>Starship class: {dat.starship_class}</Text>
+                <Text style={styles.listItem}>Hyperdrive rating: {dat.hyperdrive_rating}</Text>
             </View>
         );
 
@@ -162,15 +205,15 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text>Name: {dat.name}</Text>
-                <Text>Model: {dat.model}</Text>
-                <Text>Manufacturer: {dat.manufacturer}</Text>
-                <Text>Cost: {dat.cost_in_credits}</Text>
-                <Text>Length: {dat.length}</Text>
-                <Text>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
-                <Text>Crew: {dat.crew}</Text>
-                <Text>Passengers: {dat.passengers}</Text>
-                <Text>Vehicle class: {dat.vehicle_class}</Text>
+                <Text style={styles.listItem}>Name: {dat.name}</Text>
+                <Text style={styles.listItem}>Model: {dat.model}</Text>
+                <Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text>
+                <Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text>
+                <Text style={styles.listItem}>Length: {dat.length}</Text>
+                <Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
+                <Text style={styles.listItem}>Crew: {dat.crew}</Text>
+                <Text style={styles.listItem}>Passengers: {dat.passengers}</Text>
+                <Text style={styles.listItem}>Vehicle class: {dat.vehicle_class}</Text>
             </View>
         );
 
@@ -182,19 +225,21 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text>Name: {dat.name}</Text>
-                <Text>Classification: {dat.classification}</Text>
-                <Text>Designation: {dat.designation}</Text>
-                <Text>Average height: {dat.average_height}</Text>
-                <Text>Skin colors: {dat.skin_colors}</Text>
-                <Text>Hair colors: {dat.hair_colors}</Text>
-                <Text>Eye colors: {dat.eye_colors}</Text>
-                <Text>Average lifespan: {dat.average_lifespan}</Text>
-                <Text>Language: {dat.language}</Text>
-                <Button
+                <Text style={styles.listItem}>Name: {dat.name}</Text>
+                <Text style={styles.listItem}>Classification: {dat.classification}</Text>
+                <Text style={styles.listItem}>Designation: {dat.designation}</Text>
+                <Text style={styles.listItem}>Average height: {dat.average_height}</Text>
+                <Text style={styles.listItem}>Skin colors: {dat.skin_colors}</Text>
+                <Text style={styles.listItem}>Hair colors: {dat.hair_colors}</Text>
+                <Text style={styles.listItem}>Eye colors: {dat.eye_colors}</Text>
+                <Text style={styles.listItem}>Average lifespan: {dat.average_lifespan}</Text>
+                <Text style={styles.listItem}>Language: {dat.language}</Text>
+                <TouchableHighlight
+                    style={styles.button}
                     onPress={() => navigate('DetailScreen', {info: dat.homeworld, base: "planets"})}
-                    title="Home world"
-                />
+                >
+                    <Text style={styles.listText}>Home world</Text>
+                </TouchableHighlight>
             </View>
         );
 

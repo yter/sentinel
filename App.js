@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
         backgroundColor: 'transparent',
-        color: 'blue',
+        color: '#0016b6',
         fontWeight: 'bold',
 
     },
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         margin: 10,
         fontSize: 24,
         backgroundColor: 'transparent',
-        color: '#32E20A',
+        color: '#ffffff',
         fontWeight: 'bold',
     },
     buttonStyle: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 10,
-        backgroundColor: '#32E20A'
+        backgroundColor: '#558B2F'
     },
     buttonText: {
         fontSize: 18,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     PickerIOS : {
         color: '#FFF',
-        fontSize: 24,
+        fontSize: 28,
         marginBottom: 30,
 
     },

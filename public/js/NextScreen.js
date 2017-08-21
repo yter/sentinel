@@ -3,22 +3,28 @@ import {
     StyleSheet,
     Text,
     View,
-    Button,
+    TextInput,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    Keyboard
 } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
         width: null,
         height: null
     },
     welcome: {
         flexDirection: 'row'
+    },
+    search: {
+        flexDirection: 'row',
+        marginTop: 50,
+        marginBottom: 10,
     },
     button: {
         margin: 10,
@@ -26,15 +32,23 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 10,
-        backgroundColor: '#32E20A'
+        backgroundColor: '#558B2F'
     },
     listItem: {
         margin: 5,
         padding: 5,
-        borderColor: 'black',
+        borderColor: '#2d3400',
         borderWidth: 1,
         borderRadius: 20,
-        backgroundColor: 'blue'
+        backgroundColor: '#4a55ce',
+        minWidth: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
     },
     listText:{
         color: 'white'
@@ -43,12 +57,34 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
     },
+    input: {
+        minWidth: 130,
+        height: 30,
+        color: 'white',
+        backgroundColor: 'transparent',
+        margin: 5,
+        padding: 5,
+        borderColor: '#2d3400',
+        borderWidth: 1,
+    },
+    inputSubmit: {
+        minWidth: 50,
+        height: 30,
+        margin: 5,
+        padding: 5,
+        color: 'white',
+        backgroundColor: '#4a55ce',
+        borderColor: '#2d3400',
+        borderWidth: 1
+    }
 });
 
 class NextScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {detail: {}};
+    this.state = {
+        detail: {}
+    };
     this._fetchListing = this._fetchListing.bind(this);
     this._renderInfo = this._renderInfo.bind(this);
     this._renderNextButton = this._renderNextButton.bind(this);
@@ -123,12 +159,13 @@ class NextScreen extends Component {
 
     _fetchListing(next=false) {
         const {state} = this.props.navigation;
+        let a = state.params.text ? state.params.text: '';
         let url = '';
         // Get listing details
         if (next) {
             url = next;
         } else {
-            url = 'https://swapi.co/api/' + state.params.info + '/';
+            url = 'https://swapi.co/api/' + state.params.info + '/'+'?search='+a;
         }
         fetch(url)
             .then((response) => response.json())
@@ -139,8 +176,23 @@ class NextScreen extends Component {
     }
 
     render() {
+      const {setParams, state} = this.props.navigation;
       return (
         <Image source={require('../images/Next.jpg')} style={styles.container}>
+            <View style={styles.search}>
+            <TextInput
+                style={styles.input}
+                onChangeText={(text) => setParams({text: text})}
+                value={state.params.text}
+                placeholder="Search"
+            />
+            <TouchableHighlight
+                onPress = {() => {this._fetchListing();Keyboard.dismiss();}}>
+                <Text style={styles.inputSubmit}>
+                    Submit
+                </Text>
+            </TouchableHighlight>
+            </View>
            {this._renderInfo()}
            <View style={styles.welcome}>
              {this._renderPreviousButton()}
@@ -153,7 +205,8 @@ class NextScreen extends Component {
 
 NextScreen.navigationOptions = {
     title: 'UNIVERSE',
-    info: ''
+    info: '',
+    text: ''
 };
 
 export default NextScreen
