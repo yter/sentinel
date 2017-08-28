@@ -12,9 +12,19 @@ const Images = {
     people: require('../images/people.jpg'),
     films: require('../images/main.png'),
     starships: require('../images/starships.jpg'),
+    starship: require('../images/starship.jpg'),
     vehicles: require('../images/vehicles.png'),
     planets: require('../images/planets.jpg'),
     species: require('../images/species.jpg'),
+    luke: require('../images/Luke.png'),
+    kenobi: require('../images/Kenobi.jpeg'),
+    vader: require('../images/Vader.jpg'),
+    padme: require('../images/padme.jpg'),
+    anakin: require('../images/anakin.jpeg'),
+    destroyer: require('../images/destroyer.png'),
+    falcon: require('../images/falcon.jpg'),
+    star: require('../images/Star.jpg'),
+    main: require('../images/default.jpg')
 };
 
 const styles = StyleSheet.create({
@@ -76,6 +86,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
     },
+    imgStyles: {
+        width: 200,
+        height: 200,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10
+    }
 });
 
 
@@ -115,10 +132,32 @@ class DetailScreen extends Component {
     _renderPeople(data) {
         const { navigate } = this.props.navigation;
         let dat = data;
+        let image = Images.main;
+        switch (dat.name) {
+            case 'Luke Skywalker':
+                image = Images.luke;
+                break;
+            case 'Obi-Wan Kenobi':
+                image = Images.kenobi;
+                break;
+            case 'Anakin Skywalker':
+                image = Images.anakin;
+                break;
+            case 'Padmé Amidala':
+                image = Images.padme;
+                break;
+            case 'Darth Vader':
+                image = Images.vader;
+                break;
+
+            default:
+                console.log('go back young jedi!')
+        }
         let dates = '';
         if (dat) {
             dates = (
                 <View>
+                    <Image alt="" source={image} style={styles.imgStyles}/>
                     <Text style={styles.listItem}>Name: {dat.name}</Text>
                     <Text style={styles.listItem}>Height: {dat.height}</Text>
                     <Text style={styles.listItem}>Mass: {dat.mass}</Text>
@@ -182,8 +221,24 @@ class DetailScreen extends Component {
     _renderStarships(data) {
         const { navigate } = this.props.navigation;
         let dat = data;
+        let image = Images.starships;
+        switch (dat.name) {
+            case 'Star Destroyer':
+                image = Images.destroyer;
+                break;
+            case 'Death Star':
+                image = Images.star;
+                break;
+            case 'Millennium Falcon':
+                image = Images.falcon;
+                break;
+
+            default:
+                console.log('go back young jedi!')
+        }
         let dates = (
             <View>
+                <Image alt="" source={image} style={styles.imgStyles}/>
                 <Text style={styles.listItem}>Name: {dat.name}</Text>
                 <Text style={styles.listItem}>Model: {dat.model}</Text>
                 <Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text>
@@ -296,7 +351,7 @@ class DetailScreen extends Component {
                 break;
 
             case 'starships':
-                return Images.starships;
+                return Images.starship;
                 break;
 
             case 'vehicles':
