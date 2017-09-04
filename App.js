@@ -8,7 +8,8 @@ import {
     Dimensions,
     Platform,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    Picker
 } from 'react-native';
 
 let PickerItemIOS = PickerIOS.Item;
@@ -64,21 +65,42 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {info: 'people'};
+        this._renderIosPicker = this._renderIosPicker.bind(this);
+        this._renderAndroidPicker = this._renderAndroidPicker.bind(this)
+        this._renderPicker = this._renderPicker.bind(this)
     }
-    render(){
-    let options = [{label: 'People', value: 'people'},{label: 'Films', value: 'films'},{label: 'Starships', value: 'starships'},{label: 'Vehicles', value: 'vehicles'},{label: 'Planets', value: 'planets'},{label: 'Species', value: 'species'}];
-    const { navigate } = this.props.navigation;
-    return (
-        <Image source={require('./public/images/top.jpg')} style={styles.container}>
-            <Text style={styles.welcome}>
-                Welcome to STAR WARS WORLD! What Information do you want to know?
-            </Text>
+
+    _renderAndroidPicker (options) {
+        return (
+            <View>
+                <Picker selectedValue={this.state.info}
+                        onValueChange={(option) => this.setState({info: option})}
+                        style={styles.bottomPicker}
+                        itemStyle={styles.PickerIOS}
+                        ref={'picker'}>
+                    {options.map((option, i) => {
+                        return (
+                            <Picker.Item
+                                key={i}
+                                value={option.value}
+                                label={option.label}
+                            />
+                        )
+                    })}
+                </Picker>
+            </View>
+        )
+    }
+
+    _renderIosPicker (options) {
+        return (
+        <Viev>
             <PickerIOS
                 selectedValue={this.state.info}
                 onValueChange={(option) => this.setState({info: option})}
                 style={styles.bottomPicker}
                 itemStyle={styles.PickerIOS}
-                ref={'picker'}
+            ref={'picker'}
             >
                 {options.map((option, i) => {
                     return (
@@ -90,6 +112,27 @@ class App extends Component {
                     )
                 })}
             </PickerIOS>
+        </Viev>
+        )
+    }
+
+    _renderPicker (options) {
+        if (Platform.OS === 'android') {
+            return this._renderAndroidPicker(options);
+        } else {
+            return this._renderIosPicker(options);
+        }
+    }
+    render(){
+    let options = [{label: 'People', value: 'people'},{label: 'Films', value: 'films'},{label: 'Starships', value: 'starships'},{label: 'Vehicles', value: 'vehicles'},{label: 'Planets', value: 'planets'},{label: 'Species', value: 'species'}];
+    const { navigate } = this.props.navigation;
+
+    return (
+        <Image source={require('./public/images/top.jpg')} style={styles.container}>
+            <Text style={styles.welcome}>
+                Welcome to STAR WARS WORLD! What Information do you want to know?
+            </Text>
+            {this._renderPicker(options)}
             <Text style={styles.textStyle}>I want to know about {this.state.info}!</Text>
             <TouchableHighlight
                 style={styles.buttonStyle}
