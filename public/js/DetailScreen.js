@@ -5,7 +5,8 @@ import {
     View,
     Button,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    ScrollView
 } from 'react-native';
 
 const Images = {
@@ -42,35 +43,12 @@ const styles = StyleSheet.create({
     },
     listItem: {
         margin: 5,
-        padding: 5,
         borderColor: '#2d3400',
-        borderWidth: 1,
-        backgroundColor: '#4a55ce',
         minWidth: 200,
+        maxWidth: 300,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 1,
-        color: 'white'
-    },
-    listItemPlanet: {
-        margin: 5,
-        padding: 5,
-        borderColor: '#2d3400',
-        borderWidth: 1,
-        backgroundColor: '#4a55ce',
-        minWidth: 200,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 1,
-        color: 'white'
+        color: 'white',
     },
     button: {
         justifyContent: 'center',
@@ -91,7 +69,27 @@ const styles = StyleSheet.create({
         height: 200,
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 5,
+        padding: 5,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    listView: {
+        backgroundColor: '#4a55ce',
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        marginTop: 5,
+        marginBottom: 5
+    },
+    align: {
+        marginTop: 20,
     }
 });
 
@@ -158,14 +156,14 @@ class DetailScreen extends Component {
             dates = (
                 <View>
                     <Image alt="" source={image} style={styles.imgStyles}/>
-                    <Text style={styles.listItem}>Name: {dat.name}</Text>
-                    <Text style={styles.listItem}>Height: {dat.height}</Text>
-                    <Text style={styles.listItem}>Mass: {dat.mass}</Text>
-                    <Text style={styles.listItem}>Hair color: {dat.hair_color}</Text>
-                    <Text style={styles.listItem}>Skin color: {dat.skin_color}</Text>
-                    <Text style={styles.listItem}>Eye color: {dat.eye_color}</Text>
-                    <Text style={styles.listItem}>Birthday: {dat.birth_year}</Text>
-                    <Text style={styles.listItem}>Gender: {dat.gender}</Text>
+                    <View style={styles.listView}><Text style={styles.listItem}>Name: {dat.name}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Height: {dat.height}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Mass: {dat.mass}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Hair color: {dat.hair_color}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Skin color: {dat.skin_color}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Eye color: {dat.eye_color}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Birthday: {dat.birth_year}</Text></View>
+                    <View style={styles.listView}><Text style={styles.listItem}>Gender: {dat.gender}</Text></View>
                     <TouchableHighlight
                         style={styles.button}
                         onPress={() => navigate('DetailScreen', {info: dat.homeworld, base: "planets"})}
@@ -186,15 +184,15 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text style={styles.listItem}>Name: {dat.name}</Text>
-                <Text style={styles.listItem}>Rotation period: {dat.rotation_period}</Text>
-                <Text style={styles.listItem}>orbital_period: {dat.orbital_period}</Text>
-                <Text style={styles.listItem}>diameter: {dat.diameter}</Text>
-                <Text style={styles.listItem}>climate: {dat.climate}</Text>
-                <Text style={styles.listItem}>gravity: {dat.gravity}</Text>
-                <Text style={styles.listItem}>terrain: {dat.terrain}</Text>
-                <Text style={styles.listItem}>surface_water: {dat.surface_water}</Text>
-                <Text style={styles.listItem}>population: {dat.population}</Text>
+                <View style={styles.listView}><Text style={styles.listItem}>Name: {dat.name}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Rotation period: {dat.rotation_period}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>orbital_period: {dat.orbital_period}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>diameter: {dat.diameter}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>climate: {dat.climate}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>gravity: {dat.gravity}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>terrain: {dat.terrain}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>surface_water: {dat.surface_water}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>population: {dat.population}</Text></View>
             </View>
         );
 
@@ -206,12 +204,12 @@ class DetailScreen extends Component {
         let dat = data;
         let dates = (
             <View>
-                <Text style={styles.listItem}>Title: {dat.title}</Text>
-                <Text style={styles.listItem}>Episode_id: {dat.episode_id}</Text>
-                <Text style={styles.listItem}>Director: {dat.director}</Text>
-                <Text style={styles.listItem}>Producer: {dat.producer}</Text>
-                <Text style={styles.listItem}>Release_date: {dat.release_date}</Text>
-                <Text style={styles.listItem}>Opening Crawl: {dat.opening_crawl}</Text>
+                <View style={styles.listView}><Text style={styles.listItem}>Title: {dat.title}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Episode_id: {dat.episode_id}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Director: {dat.director}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Producer: {dat.producer}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Release_date: {dat.release_date}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Opening Crawl: {dat.opening_crawl}</Text></View>
             </View>
         );
 
@@ -239,16 +237,16 @@ class DetailScreen extends Component {
         let dates = (
             <View>
                 <Image alt="" source={image} style={styles.imgStyles}/>
-                <Text style={styles.listItem}>Name: {dat.name}</Text>
-                <Text style={styles.listItem}>Model: {dat.model}</Text>
-                <Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text>
-                <Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text>
-                <Text style={styles.listItem}>Length: {dat.length}</Text>
-                <Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
-                <Text style={styles.listItem}>Crew: {dat.crew}</Text>
-                <Text style={styles.listItem}>Passengers: {dat.passengers}</Text>
-                <Text style={styles.listItem}>Starship class: {dat.starship_class}</Text>
-                <Text style={styles.listItem}>Hyperdrive rating: {dat.hyperdrive_rating}</Text>
+                <View style={styles.listView}><Text style={styles.listItem}>Name: {dat.name}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Model: {dat.model}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Length: {dat.length}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Crew: {dat.crew}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Passengers: {dat.passengers}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Starship class: {dat.starship_class}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Hyperdrive rating: {dat.hyperdrive_rating}</Text></View>
             </View>
         );
 
@@ -259,16 +257,16 @@ class DetailScreen extends Component {
         const { navigate } = this.props.navigation;
         let dat = data;
         let dates = (
-            <View>
-                <Text style={styles.listItem}>Name: {dat.name}</Text>
-                <Text style={styles.listItem}>Model: {dat.model}</Text>
-                <Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text>
-                <Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text>
-                <Text style={styles.listItem}>Length: {dat.length}</Text>
-                <Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text>
-                <Text style={styles.listItem}>Crew: {dat.crew}</Text>
-                <Text style={styles.listItem}>Passengers: {dat.passengers}</Text>
-                <Text style={styles.listItem}>Vehicle class: {dat.vehicle_class}</Text>
+            <View style={styles.align} >
+                <View style={styles.listView}><Text style={styles.listItem}>Name: {dat.name}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Model: {dat.model}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Manufacturer: {dat.manufacturer}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Cost: {dat.cost_in_credits}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Length: {dat.length}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Max atmosphering speed: {dat.max_atmosphering_speed}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Crew: {dat.crew}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Passengers: {dat.passengers}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Vehicle class: {dat.vehicle_class}</Text></View>
             </View>
         );
 
@@ -279,16 +277,16 @@ class DetailScreen extends Component {
         const { navigate } = this.props.navigation;
         let dat = data;
         let dates = (
-            <View>
-                <Text style={styles.listItem}>Name: {dat.name}</Text>
-                <Text style={styles.listItem}>Classification: {dat.classification}</Text>
-                <Text style={styles.listItem}>Designation: {dat.designation}</Text>
-                <Text style={styles.listItem}>Average height: {dat.average_height}</Text>
-                <Text style={styles.listItem}>Skin colors: {dat.skin_colors}</Text>
-                <Text style={styles.listItem}>Hair colors: {dat.hair_colors}</Text>
-                <Text style={styles.listItem}>Eye colors: {dat.eye_colors}</Text>
-                <Text style={styles.listItem}>Average lifespan: {dat.average_lifespan}</Text>
-                <Text style={styles.listItem}>Language: {dat.language}</Text>
+            <View style={styles.align}>
+                <View style={styles.listView}><Text style={styles.listItem}>Name: {dat.name}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Classification: {dat.classification}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Designation: {dat.designation}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Average height: {dat.average_height}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Skin colors: {dat.skin_colors}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Hair colors: {dat.hair_colors}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Eye colors: {dat.eye_colors}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Average lifespan: {dat.average_lifespan}</Text></View>
+                <View style={styles.listView}><Text style={styles.listItem}>Language: {dat.language}</Text></View>
                 <TouchableHighlight
                     style={styles.button}
                     onPress={() => navigate('DetailScreen', {info: dat.homeworld, base: "planets"})}
@@ -372,14 +370,16 @@ class DetailScreen extends Component {
 
       return (
         <Image alt="" source={img} style={styles.container}>
-            {this._renderInfo()}
+            <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={200}>
+                {this._renderInfo()}
+            </ScrollView>
         </Image>
       );
     }
 }
 
 DetailScreen.navigationOptions = {
-    title: 'DetailScreen',
+    title: 'Detail Page',
     info: ''
 };
 

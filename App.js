@@ -30,14 +30,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         color: '#0016b6',
         fontWeight: 'bold',
-
+        shadowColor: '#d1e918',
+        shadowOffset: { width: 1, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+        elevation: 1,
     },
     textStyle: {
         margin: 10,
-        fontSize: 24,
+        fontSize: 22,
         backgroundColor: 'transparent',
         color: '#ffffff',
         fontWeight: 'bold',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+        elevation: 1,
     },
     buttonStyle: {
         padding: 10,
@@ -94,7 +103,7 @@ class App extends Component {
 
     _renderIosPicker (options) {
         return (
-        <Viev>
+        <View>
             <PickerIOS
                 selectedValue={this.state.info}
                 onValueChange={(option) => this.setState({info: option})}
@@ -112,7 +121,7 @@ class App extends Component {
                     )
                 })}
             </PickerIOS>
-        </Viev>
+        </View>
         )
     }
 

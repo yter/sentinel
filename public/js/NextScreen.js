@@ -9,6 +9,9 @@ import {
     Keyboard
 } from 'react-native';
 
+const Images = {
+    grumpy: require('../images/grumpy.jpg'),
+};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -58,25 +61,47 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     input: {
+        paddingLeft: 5,
         minWidth: 130,
-        height: 30,
         color: 'white',
         backgroundColor: 'transparent',
-        margin: 5,
-        padding: 5,
-        borderColor: '#2d3400',
-        borderWidth: 1,
     },
     inputSubmit: {
         minWidth: 50,
         height: 30,
         margin: 5,
         padding: 5,
-        color: 'white',
         backgroundColor: '#4a55ce',
         borderColor: '#2d3400',
-        borderWidth: 1
-    }
+        borderWidth: 1,
+        borderRadius: 20,
+    },
+    borderStyle:{
+        borderColor: '#2d3400',
+        borderWidth: 1,
+        borderRadius: 20,
+        height: 30,
+        margin: 5,
+        padding: 5,
+    },
+    emptyMessage:{
+        justifyContent: 'center',
+        alignSelf: 'center',
+        backgroundColor: 'transparent',
+        fontSize: 16,
+        color: 'white',
+    },
+    imgStyles: {
+        width: 200,
+        height: 250,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        margin: 5,
+        padding: 5,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
 });
 
 class NextScreen extends Component {
@@ -117,6 +142,14 @@ class NextScreen extends Component {
                   <Text style={styles.listText}>{data.name}</Text>
               </TouchableHighlight>
           );
+          if (!data.length) {
+              buttons = (
+                  <View>
+                      <Text style={styles.emptyMessage}>Sorry, no matches found.</Text>
+                      <Image alt="" source={Images.grumpy} style={styles.imgStyles}/>
+                  </View>
+              );
+          }
       }
 
       return buttons;
@@ -157,9 +190,10 @@ class NextScreen extends Component {
         }
     }
 
-    _fetchListing(next=false) {
+    _fetchListing(next=false, pure=false) {
         const {state} = this.props.navigation;
-        let a = state.params.text ? state.params.text: '';
+        let a = state.params.text && !pure ? state.params.text : '';
+
         let url = '';
         // Get listing details
         if (next) {
@@ -180,18 +214,26 @@ class NextScreen extends Component {
       return (
         <Image source={require('../images/Next.jpg')} style={styles.container}>
             <View style={styles.search}>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setParams({text: text})}
-                value={state.params.text}
-                placeholder="Search"
-            />
+                <View style={styles.borderStyle}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setParams({text: text})}
+                        value={state.params.text}
+                        placeholder="Search"
+                    />
+                </View>
             <TouchableHighlight
                 onPress = {() => {this._fetchListing();Keyboard.dismiss();}}>
-                <Text style={styles.inputSubmit}>
-                    Submit
-                </Text>
+                <View style={styles.inputSubmit}>
+                    <Text>Submit</Text>
+                </View>
             </TouchableHighlight>
+                <TouchableHighlight
+                    onPress = {() => {setParams({text: ""}) ; this._fetchListing(false, true); Keyboard.dismiss();}}>
+                    <View style={styles.inputSubmit}>
+                        <Text>Clear</Text>
+                    </View>
+                </TouchableHighlight>
             </View>
            {this._renderInfo()}
            <View style={styles.welcome}>
@@ -204,7 +246,7 @@ class NextScreen extends Component {
 }
 
 NextScreen.navigationOptions = {
-    title: 'UNIVERSE',
+    title: 'Select Page',
     info: '',
     text: ''
 };

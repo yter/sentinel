@@ -9,7 +9,7 @@ import DetailScreen from './public/js/DetailScreen'
 
 class reactNavigationSample extends Component {
     static navigationOptions = {
-        title: 'Home Screen',
+        title: 'Jedi Order',
     };
 
     render(){
